@@ -105,14 +105,13 @@ while true; do
 
     # Display menu options
     echo -e "${BOLD}Menu:${RESET}"
-    echo -e "${BLUE}----------------------${RESET}"
     [ -f "$projects_directory/$project_name/vendor/bin/pint" ] && echo -e "${CYAN}10. Pint${RESET}"
     [ -f "$projects_directory/$project_name/vendor/bin/pest" ] && echo -e "${CYAN}11. Test --coverage${RESET}"
     [ -f "$projects_directory/$project_name/artisan" ] && echo -e "${CYAN}12. Run artisan command${RESET}"
     [ "$sail" == true ] && echo -e "${CYAN}13. Restart sail${RESET}"
-    [ "$git" == true ] && echo -e "${BLUE}----------------------${RESET}\n${CYAN}20. Git status${RESET}\n${CYAN}21. Git pull${RESET}\n${CYAN}22. Git push${RESET}"
-    [ -f "$projects_directory/$project_name/composer.json" ] && echo -e "${BLUE}----------------------${RESET}\n${CYAN}30. Composer update${RESET}\n${BLUE}----------------------${RESET}"
-    echo -e "${PURPLE}98. Clean screen${RESET}\n${PURPLE}99. Exit${RESET}\n${BLUE}----------------------${RESET}"
+    [ "$git" == true ] && echo -e "${CYAN}20. Git status${RESET}\n${CYAN}21. Git pull${RESET}\n${CYAN}22. Git push${RESET}"
+    [ -f "$projects_directory/$project_name/composer.json" ] && echo -e "${CYAN}30. Composer update${RESET}"
+    echo -e "${PURPLE}98. Clean screen${RESET}\n${PURPLE}99. Exit${RESET}"
 
     # Prompt user for menu option
     read -p "$(echo -e "$GREEN""$USER, Choose an option: ""$RESET")" option
