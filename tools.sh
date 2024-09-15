@@ -112,9 +112,15 @@ while true; do
 
     echo -e "${BOLD}Menu:${RESET}"
     echo -e "${BLUE}----------------------${RESET}"
-    echo -e "${CYAN}10. Pint${RESET}"
-    echo -e "${CYAN}11. Test --coverage${RESET}"
-    echo -e "${CYAN}12. Run artisan command${RESET}"
+    if [ -f "$projects_directory/$project_name/vendor/bin/pint" ]; then
+      echo -e "${CYAN}10. Pint${RESET}"
+    fi
+    if [ -f "$projects_directory/$project_name/vendor/bin/pest" ]; then
+      echo -e "${CYAN}11. Test --coverage${RESET}"
+    fi
+    if [ -f "$projects_directory/$project_name/artisan" ]; then
+      echo -e "${CYAN}12. Run artisan command${RESET}"
+    fi
     if [ $sail == true ]; then
       echo -e "${CYAN}13. Restart sail${RESET}"
     fi
@@ -125,8 +131,11 @@ while true; do
       echo -e "${CYAN}22. Git push${RESET}"
     fi
     echo -e "${BLUE}----------------------${RESET}"
-    echo -e "${CYAN}30. Composer update${RESET}"
-    echo -e "${BLUE}----------------------${RESET}"
+    #check if composer.json exists in the project, if yes, show the composer update option
+    if [ -f "$projects_directory/$project_name/composer.json" ]; then
+      echo -e "${CYAN}30. Composer update${RESET}"
+      echo -e "${BLUE}----------------------${RESET}"
+    fi
     echo -e "${PURPLE}98. Clean screen${RESET}"
     echo -e "${PURPLE}99. Exit${RESET}"
     echo -e "${BLUE}----------------------${RESET}"
