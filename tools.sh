@@ -125,7 +125,7 @@ while true; do
         20) cd "$projects_directory/$project_name" && git status ;;
         21) cd "$projects_directory/$project_name" && git pull --rebase ;;
         22) cd "$projects_directory/$project_name" && git add . && read -p "$(echo -e "$GREEN""Enter the commit message: ""$RESET")" commit_message && git commit -m "$commit_message" && git push ;;
-        30) cd "$projects_directory/$project_name" && composer update ;;
+        30) cd "$projects_directory/$project_name" && [ "$sail" == true ] && ./vendor/bin/sail composer update || composer update ;;
         98) clear ;;
         99) [ "$sail" == true ] && read -p "$(echo -e "$YELLOW""Do you want to stop sail? (y/n): ""$RESET")" stop_sail && [ "$stop_sail" == "y" ] && cd "$projects_directory/$project_name" && ./vendor/bin/sail down; break ;;
         *) echo -e "${RED}Invalid option${RESET}" ;;
