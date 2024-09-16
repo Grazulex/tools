@@ -5,7 +5,6 @@ RESET="\033[0m"
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[0;33m'
-BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 PURPLE='\033[0;35m'
 BOLD="\033[1m"
@@ -25,7 +24,7 @@ if [ ! -d "$projects_directory" ]; then
 fi
 
 # Change to the projects directory
-cd "$projects_directory"
+cd "$projects_directory" || exit
 
 # Prompt user for the project name
 read -e -p "$(echo -e "$GREEN""Enter the projects name: ""$RESET")" project_name
@@ -49,7 +48,7 @@ git=false
 if [ ! -d "$projects_directory/$project_name/.git" ]; then
     read -p "$(echo -e "$YELLOW""This project is not a git repository, do you want to init it? (y/n): ""$RESET")" init_git
     if [ "$init_git" == "y" ]; then
-        cd "$projects_directory/$project_name"
+        cd "$projects_directory/$project_name" || exit
         git init
         git=true
     fi
@@ -61,7 +60,7 @@ fi
 if [ ! -d "$projects_directory/$project_name/vendor/laravel/sail" ]; then
     read -p "$(echo -e "$YELLOW""Sail is not installed in this project, do you want to install it? (y/n): ""$RESET")" install_sail
     if [ "$install_sail" == "y" ]; then
-        cd "$projects_directory/$project_name"
+        cd "$projects_directory/$project_name" || exit
         composer require laravel/sail --dev
         php artisan sail:install
         ./vendor/bin/sail up -d
@@ -75,7 +74,7 @@ else
     else
         read -p "$(echo -e "$YELLOW""Sail is not running, do you want to start it? (y/n): ""$RESET")" start_sail
         if [ "$start_sail" == "y" ]; then
-            cd "$projects_directory/$project_name"
+            cd "$projects_directory/$project_name" || exit
             ./vendor/bin/sail up -d
             sail=true
         fi
@@ -94,6 +93,7 @@ while true; do
 
     # Display PHP version based on Sail status
     if [ "$sail" == true ]; then
+        # shellcheck disable=SC2046
         echo -e "${GREEN}PHP (docker) $(docker exec -it $(docker ps | grep "$service_name" | cut -d' ' -f1) php -v | head -n 1 | cut -d " " -f 2 | cut -f1-2 -d".")${RESET}"
     else
         if [ "$(php -v)" ]; then
