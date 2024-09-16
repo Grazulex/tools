@@ -35,6 +35,41 @@ To use the script:
     ./tools.sh
     ```
 
+## How to install it globally in your system to have access to it from anywhere
+
+1. Move the script to a directory in your PATH:
+
+    ```bash
+    sudo mv /path/to/your/tools.sh /usr/local/bin/tools
+    ```
+
+2. Make the script executable:
+
+    ```bash
+    sudo chmod +x /usr/local/bin/tools
+    ```
+
+3. Verify the script is in your PATH by running:
+
+    ```bash
+    echo $PATH
+    ```
+
+4. If `/usr/local/bin` is not in your PATH, add it by editing your shell profile file (e.g., `.bashrc`, `.zshrc`):
+
+    ```bash
+    export PATH=$PATH:/usr/local/bin
+    ```
+
+5. Reload your shell profile:
+
+    ```bash
+    source ~/.bashrc  # or source ~/.zshrc
+    ```
+
+Now you should be able to run your script from anywhere by simply typing `tools` in the terminal.
+
+
 ## Usage
 
 Upon running the script, you will be prompted to enter the project directory and project name. If they do not exist, the script will give you options to create them. From there, you'll have access to the following features:
